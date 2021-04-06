@@ -1,107 +1,113 @@
 import time
 import random
 
+AccountInfo = {}
+balance = 200.0
 
-def withdral(amount, availableAmount):
+
+def init():
+    ValidSelected = False
+    while ValidSelected == False:
+        ValidSelected = True
+        print("Hello welcome to banking system")
+        HaveAcc = int(input("Do you have account 1 for Yes, 2 for No: "))
+        if (HaveAcc == 1):
+            login()
+
+        elif (HaveAcc == 2):
+            register()
+
+        else:
+            print("Invalid Selection")
+            ValidSelected = False
+
+
+def GenerateAccNumber():
+    num = random.randint(1000000000, 9999999999)
+    print("The Account Number is: ", num)
+    return num
+
+
+def withdral(amount, availableAmount,user):
     balance = availableAmount - amount
+    print(user[0], user[1], "your current balance is: ", balance, "\n")
+    accept = input("do you want to continue the system y / n: ")
+    if (accept == 'y'):
+        Operation(user)
+    else:
+        login()
     return balance
 
-def deposit(amount, availableAmount):
+
+def deposit(amount, availableAmount, user):
     balance = availableAmount + amount
+    print(user[0], user[1], "your current balance is: ", balance, "\n")
+    accept = input("do you want to continue the system y / n: ")
+    if (accept == 'y'):
+        Operation(user)
+    else:
+        login()
     return balance
+
 
 def complaint(message):
-    print("your issue ",message, " will be solve for you")
+    print("your issue ", message, " will be solve for you")
     print("Thank you for contacting us")
+
     pass
-def generateAccNumber():
-    randomlist = []
-    n = random.randint(1000000000, 9999999999)
-    randomlist.append(n)
-    return randomlist
+
+
 def login():
+    isLoginSuccessful = False
 
-    pass
-def register():
-
-    pass
-
-
-
-Account = {}
-allowedusers = ["kofi", "ama", "ernest"]
-allowedpassword = ["1233", "pass", "ern12"]
-accNumber = []
-avalableAmount = 2000
-ballance = 0
-
-cont = False
-while(cont == False):
-    t = time.localtime()
-    current_time = time.strftime("%H:%M:%S", t)
-    print("time: ",current_time)
-
-
-
-
-    take = int(input("Press 1 to register a member or press 0 to login: "))
-
-    if(take == 1):
-         takeName = input("Enter the name: ")
-         takePass = input("Enter password: ")
-         takeEmail = input("Enter your Email: ")
-         allowedusers.append(takeName)
-         allowedpassword.append(takePass)
-         print("The Account Number is: ", generateAccNumber())
-         accNumber.append(generateAccNumber())
-         Account[generateAccNumber()] = [takeName, takeEmail, takePass]
-
-    elif(take == 0):
-
-        name = input("Enter your user name: ")
-
-        if(name in allowedusers):
-            password = input("enter your password: ")
-            userid = allowedusers.index(name)
-
-            if(password == allowedpassword[userid]):
-                print("Welcome ", name)
-                print("Available options to chose from")
-                print(" 1. withdrawal \n 2.cash deposit \n 3. complaint")
-
-                selectedOption = int(input("Please select an option: "))
-
-                if (selectedOption == 1):
-                    amount = int(input("How much would you like to withdraw: "))
-                    if (amount >= avalableAmount):
-                        print("you can not chash this amount!")
-                    else:
-                        ballance = withdral(amount, avalableAmount)
-                        print("take your money ", amount, "your remaining balance is: ", ballance)
-                elif(selectedOption == 2):
-                    amount = int(input("How much would you like to deposit?"))
-                    ballance = deposit(amount, avalableAmount)
-                    print("you have deposit ", amount, "now your balance is: ", ballance)
-
-                elif(selectedOption == 3):
-                    message = input("What issue will you like to report? ")
-                    complaint(message)
-
+    while isLoginSuccessful == False:
+        AccountNum = int(input("Enter your account Number: "))
+        AccPassword = input("Enter your password: ")
+        for AccountNumber, userDetails in AccountInfo.items():
+            if (AccountNumber == AccountNum):
+                if (userDetails[3] == AccPassword):
+                    isLoginSuccessful = True
+                    Operation(userDetails)
                 else:
-                    print("invalid option selected")
-                    pass
-
-                print(" succesfull ",)
+                    print("Invalid Login!")
             else:
-                print("incorect password! ")
+                print("Invalid Login!")
+
+    pass
+
+
+def register():
+    FName = input("Enter your first name: ")
+    LName = input("Enter your last name: ")
+    Email = input("Enter your Email: ")
+    Password = input("Enter your password: ")
+    AccountNumber = GenerateAccNumber()
+    print("Account registration succesful")
+    AccountInfo[AccountNumber] = [FName, LName, Email, Password]
+    login()
+
+
+def Operation(details):
+    print("Welcom ", details[0],details[1])
+    selection =int(input("Select an option \n1. Withdrawal \n2. Deposit \n3. Complaint \n4. logout \n5. Exit\nMake a choice: "))
+    if(selection == 1):
+        amount = int(input("Enter Amount to withdraw: "))
+        withdral(amount,balance, details)
+    elif(selection == 2):
+        amount = int(input("Enter Amount to Deposit: "))
+        deposit(amount, balance,details)
+    elif (selection == 3):
+        message = input("Enter your complain: \n")
+        complaint(message)
+    elif (selection == 4):
+        login()
+    elif (selection == 5):
+        accept = input("do you want to exit the system y / n: ")
+        if(accept == 'y'):
+            exit()
         else:
-            print("neme not found! ")
-    else:
-        print("Please check your selection")
-    use = input("Press y o continue: ")
-    if(use == 'y'):
-        cont = False
-    else:
-        cont = True
+            Operation(details)
 
 
+
+init()
