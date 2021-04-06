@@ -16,10 +16,19 @@ def complaint(message):
     pass
 def generateAccNumber():
     randomlist = []
-    n = random.randint(1000000, 3000000)
+    n = random.randint(1000000000, 9999999999)
     randomlist.append(n)
     return randomlist
+def login():
 
+    pass
+def register():
+
+    pass
+
+
+
+Account = {}
 allowedusers = ["kofi", "ama", "ernest"]
 allowedpassword = ["1233", "pass", "ern12"]
 accNumber = []
@@ -40,10 +49,11 @@ while(cont == False):
     if(take == 1):
          takeName = input("Enter the name: ")
          takePass = input("Enter password: ")
-         allowedusers.append(takeName)
-         allowedpassword.append(takePass)
-         accNumber.append(generateAccNumber())
+         takeEmail = input("Enter your Email: ")
          print("The Account Number is: ", generateAccNumber())
+         accNumber.append(generateAccNumber())
+         Account[generateAccNumber()] = [takeName, takeEmail, takePass]
+
     elif(take == 0):
 
         name = input("Enter your user name: ")
