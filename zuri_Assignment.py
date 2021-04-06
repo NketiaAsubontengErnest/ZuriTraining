@@ -35,7 +35,7 @@ while(cont == False):
 
 
 
-    take = int(input("Press 1 to register a member or press 0 to skip: "))
+    take = int(input("Press 1 to register a member or press 0 to login: "))
 
     if(take == 1):
          takeName = input("Enter the name: ")
@@ -44,7 +44,7 @@ while(cont == False):
          allowedpassword.append(takePass)
          accNumber.append(generateAccNumber())
          print("The Account Number is: ", generateAccNumber())
-    else:
+    elif(take == 0):
 
         name = input("Enter your user name: ")
 
@@ -84,7 +84,8 @@ while(cont == False):
                 print("incorect password! ")
         else:
             print("neme not found! ")
-
+    else:
+        print("Please check your selection")
     use = input("Press y o continue: ")
     if(use == 'y'):
         cont = False
