@@ -50,6 +50,8 @@ while(cont == False):
          takeName = input("Enter the name: ")
          takePass = input("Enter password: ")
          takeEmail = input("Enter your Email: ")
+         allowedusers.append(takeName)
+         allowedpassword.append(takePass)
          print("The Account Number is: ", generateAccNumber())
          accNumber.append(generateAccNumber())
          Account[generateAccNumber()] = [takeName, takeEmail, takePass]
