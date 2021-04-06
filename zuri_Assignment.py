@@ -1,11 +1,15 @@
-import time
+import datetime
 import random
 
 AccountInfo = {}
 balance = 200.0
 
+def Time():
+    x = datetime.datetime.now()
+    print(x)
 
 def init():
+    Time()
     ValidSelected = False
     while ValidSelected == False:
         ValidSelected = True
