@@ -1,6 +1,7 @@
 import datetime
 import random
 
+
 AccountInfo = {}
 balance = 200.0
 
@@ -111,7 +112,9 @@ def Operation(details):
             exit()
         else:
             Operation(details)
-
+    else:
+        print("invalid option! ")
+        Operation(details)
 
 
 init()
